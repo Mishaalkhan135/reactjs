@@ -1,68 +1,67 @@
 import React, { useState } from "react";
-import { Form, Input, Checkbox, Button } from "antd";
-const Login = () => {
+import { Form, Input, Button } from "antd";
+import { useDispatch } from "react-redux";
+import { LoginUser } from "../Redux/Actions/authActions";
+
+const Login = (props) => {
+  const dispatch = useDispatch();
+  const onFinish = (values) => {
+    console.log("values", values);
+    dispatch(LoginUser(values));
+  };
   return (
-    <div>
-      <Form
-        name='basic'
-        // labelCol={{
-        //   span: 8,
-        // }}
-        // wrapperCol={{
-        //   span: 16,
-        // }}
-
-        // onFinish={onFinish}
-        // onFinishFailed={onFinishFailed}
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{
+          width: "80%",
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
-        <Form.Item
-          label='Email'
-          name='email'
-          rules={[
-            {
-              required: true,
-              message: "Please input your email!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+        <Form
+          name='basic'
+          // labelCol={{
+          //   span: 8,
+          // }}
+          // wrapperCol={{
+          //   span: 16,
+          // }}
 
-        <Form.Item
-          label='Password'
-          name='password'
-          rules={[
-            {
-              required: true,
-              message: "Please input your password!",
-            },
-          ]}
+          onFinish={onFinish}
+          // onFinishFailed={onFinishFailed}
+          style={{ width: "100%" }}
         >
-          <Input.Password />
-        </Form.Item>
+          <h1>Login Form</h1>
+          <Form.Item
+            name='email'
+            rules={[
+              {
+                required: true,
+                message: "Please input your email!",
+              },
+              { type: "email", message: "Please enter valid email" },
+            ]}
+          >
+            <Input placeholder='Email' type='email' />
+          </Form.Item>
 
-        <Form.Item
-          name='remember'
-          valuePropName='checked'
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
+          <Form.Item
+            name='password'
+            rules={[
+              {
+                required: true,
+                message: "Please input your password!",
+              },
+            ]}
+          >
+            <Input.Password placeholder='Password' />
+          </Form.Item>
 
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
-          <Button type='primary' htmlType='submit'>
+          <Button type='primary' block htmlType='submit'>
             Submit
           </Button>
-        </Form.Item>
-      </Form>
+        </Form>
+      </div>
     </div>
   );
 };
