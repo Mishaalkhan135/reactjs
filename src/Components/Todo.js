@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Todo = () => {
+const Todo = (props) => {
   const [arr, setArr] = useState([]);
   const [task, setTask] = useState("");
   const [isEdit, setEdit] = useState(false);
@@ -11,6 +11,7 @@ const Todo = () => {
     }
     arr.push(task);
     setArr([...arr]);
+    props.setTodoTask(task);
     setTask("");
   };
   const deleteTodo = (index) => {
@@ -38,6 +39,7 @@ const Todo = () => {
   return (
     <div>
       <div>
+        <h1>Todo App</h1>
         <input
           name='task'
           placeholder='Add Tasks'
