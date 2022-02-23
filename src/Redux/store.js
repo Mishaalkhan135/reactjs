@@ -1,6 +1,18 @@
 import { authReducers } from "./Reducers";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+//To save data in redux
+import { persistStore, persistReducer } from "redux-persist";
+//for Storage of redux
+import storage from "redux-persist/lib/storage";
+import thunk from "redux-thunk";
 
-const store = createStore(authReducers);
+const persistConfig = {
+  key: "root",
+  storage,
+};
 
-export default store;
+const persistedReducer = persistReducer(persistConfig, authReducers);
+
+const store = createStore(persistedReducer, applyMiddleware(thunk));
+const persistor = persistStore(store);
+export { store, persistor };

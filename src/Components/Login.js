@@ -2,12 +2,21 @@ import React, { useState } from "react";
 import { Form, Input, Button } from "antd";
 import { useDispatch } from "react-redux";
 import { LoginUser } from "../Redux/Actions/authActions";
+import { Link } from "react-router-dom";
+import { message, notification } from "antd";
+import allPaths from "../Config/path";
 
 const Login = (props) => {
+  const { history } = props;
   const dispatch = useDispatch();
   const onFinish = (values) => {
     console.log("values", values);
-    dispatch(LoginUser(values));
+    if (values?.email === "admin@gmail.com" && values?.password === "admin") {
+      dispatch(LoginUser(values));
+      message.success("Successfully LogedIn");
+      return history.push(allPaths.HOME);
+    }
+    message.error("Invalid Email Or Password");
   };
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
@@ -62,6 +71,9 @@ const Login = (props) => {
           </Button>
         </Form>
       </div>
+      {/* <Button type='primary'>
+        <Link to={allPaths.HOME}>Go To Home</Link>
+      </Button> */}
     </div>
   );
 };

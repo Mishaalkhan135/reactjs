@@ -1,6 +1,11 @@
-import { LOGIN } from "../types";
+import { LOGIN, LOGOUT } from "../types";
 
 const LoginUser = (user) => {
   return { type: LOGIN, user };
 };
-export { LoginUser };
+
+const removeUser = () => {
+  return { type: LOGOUT };
+};
+
+export { LoginUser, removeUser };

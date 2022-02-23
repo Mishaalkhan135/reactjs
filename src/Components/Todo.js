@@ -1,6 +1,10 @@
 import { useState } from "react";
+import { Button } from "antd";
+import { removeUser } from "../Redux/Actions/authActions";
+import { useDispatch } from "react-redux";
 
 const Todo = (props) => {
+  const dispatch = useDispatch();
   const [arr, setArr] = useState([]);
   const [task, setTask] = useState("");
   const [isEdit, setEdit] = useState(false);
@@ -68,6 +72,9 @@ const Todo = (props) => {
           );
         })}
       </ol>
+      <Button type='dashed' onClick={() => dispatch(removeUser())}>
+        LogOut
+      </Button>
     </div>
   );
 };
